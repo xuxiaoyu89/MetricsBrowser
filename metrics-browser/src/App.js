@@ -1,22 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import Chart from './Chart';
+import SeriesSelector from './SeriesView';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Metrics Browser
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
+      <label>Public API: </label>
+      <input type="text" id="publicAPI" name="publicAPI"></input>
+      <label>Public Key: </label>
+      <input type="text" id="publicKey" name="publicKey"></input>
+      <label>Private Key: </label>
+      <input type="text" id="privateKey" name="privateKey"></input>
+      <button>get metrics</button>
+      <SeriesSelector />
+      <Chart />
     </div>
   );
 }
