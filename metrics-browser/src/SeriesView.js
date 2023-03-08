@@ -12,8 +12,9 @@ class SeriesView extends Component {
         this.apiPrivateKey = "36d0ac8b-df27-49e1-8498-fcfd451660ba";
         this.groupID = "63ff7f8397f5ea615df7db2e";
         this.appID = "636276a6dab3c68df06a73ad";
-
         this.hostID = "";
+
+        this.showMetricsNames = this.showMetricsNames.bind(this);
     }
 
     getBaasMeasurementsPublicUrl(groupID, applicationID) {
@@ -30,39 +31,27 @@ class SeriesView extends Component {
     // curl --user "bjwqwyko:36d0ac8b-df27-49e1-8498-fcfd451660ba" --digest --header "Content-Type: application/json" --include --request GET "http://localhost:8080/api/atlas/v1.0/groups/63ff7f8397f5ea615df7db2e/application/636276a6dab3c68df06a73ad/realm/measurements?granularity=PT1M&period=PT1H"
 
     render() {
-        return <div id="seriesSelector"></div>;
+        return <div id="seriesSelector">
+            <button onClick={this.showMetricsNames}>Show Avaiable Metrics</button>
+        </div>;
     }
 
-    componentDidMount() {
+    showMetricsNames() {
         const metricsUrl = this.getBaasMetricsPublicUrl(this.groupID, this.appID);
         // call api
-        // const digestAuth = new AxiosDigestAuth({
-        //     username: this.apiPublicKey,
-        //     password: this.apiPrivateKey,
-        // });
-
-        // digestAuth.request({
-        //     headers: { Accept: "application/json" },
-        //     method: "GET",
-        //     url: metricsUrl,
-        // }).then(response => {console.log(response)});
-
-        // digestAuthRequest
         var getRequest = new digestAuthRequest('GET', metricsUrl, this.apiPublicKey, this.apiPrivateKey);
-        // make the request
         getRequest.request(function(data) { 
-            console.log("success!!!!!!!!!");
             console.log("data: ", data);
         },function(errorCode) { 
             console.log("error: ", errorCode);
         });
-
-
-
-        // parse response: get all the metrics names
-        const seriesNames = ["xiaoyu", "qinhua", "alan", "gloria"];
-        document.getElementById("seriesSelector").innerHTML = seriesNames;
     }
+
+    // componentDidMount() {
+    //     // parse response: get all the metrics names
+    //     const seriesNames = ["xiaoyu", "qinhua", "alan", "gloria"];
+    //     document.getElementById("seriesSelector").innerHTML = seriesNames;
+    // }
 }
 
 export default SeriesView;
