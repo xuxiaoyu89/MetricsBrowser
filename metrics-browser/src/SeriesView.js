@@ -1,5 +1,5 @@
 import { Component } from "react";
-import AxiosDigestAuth from '@mhoc/axios-digest-auth';
+import digestAuthRequest from 'digest-auth-request';
 
 class SeriesView extends Component {
     constructor(props) {
@@ -17,11 +17,11 @@ class SeriesView extends Component {
     }
 
     getBaasMeasurementsPublicUrl(groupID, applicationID) {
-        return `http://localhost:8080/api/atlas/v1.0/groups/${groupID}/application/${applicationID}/realm/measurements?granularity=PT1M&period=PT1H`;
+        return `/api/atlas/v1.0/groups/${groupID}/application/${applicationID}/realm/measurements?granularity=PT1M&period=PT1H`;
     }
 
     getBaasMetricsPublicUrl(groupID, applicationID) {
-        return `http://localhost:8080/api/atlas/v1.0/groups/${groupID}/application/${applicationID}/realm/metrics`;
+        return `/api/atlas/v1.0/groups/${groupID}/application/${applicationID}/realm/metrics`;
     }
 
 
@@ -34,17 +34,29 @@ class SeriesView extends Component {
     }
 
     componentDidMount() {
+        const metricsUrl = this.getBaasMetricsPublicUrl(this.groupID, this.appID);
         // call api
-        const digestAuth = new AxiosDigestAuth({
-            username: this.apiPublicKey,
-            password: this.apiPrivateKey,
+        // const digestAuth = new AxiosDigestAuth({
+        //     username: this.apiPublicKey,
+        //     password: this.apiPrivateKey,
+        // });
+
+        // digestAuth.request({
+        //     headers: { Accept: "application/json" },
+        //     method: "GET",
+        //     url: metricsUrl,
+        // }).then(response => {console.log(response)});
+
+        // digestAuthRequest
+        var getRequest = new digestAuthRequest('GET', metricsUrl, this.apiPublicKey, this.apiPrivateKey);
+        // make the request
+        getRequest.request(function(data) { 
+            console.log("success!!!!!!!!!");
+            console.log("data: ", data);
+        },function(errorCode) { 
+            console.log("error: ", errorCode);
         });
 
-        digestAuth.request({
-            headers: { Accept: "application/json" },
-            method: "GET",
-            url: this.getBaasMetricsPublicUrl(this.groupID, this.appID),
-        });
 
 
         // parse response: get all the metrics names
