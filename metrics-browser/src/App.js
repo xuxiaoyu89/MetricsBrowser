@@ -1,5 +1,4 @@
 import './App.css';
-import Chart from './Chart';
 import SeriesView from './SeriesView';
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
       <input type="text" id="privateKey" name="privateKey"></input>
       <button>get metrics</button>
       <SeriesView />
-      <Chart />
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import "./SeriesView.css"
 import { Component } from "react";
+import Chart from './Chart';
 import digestAuthRequest from 'digest-auth-request';
+import ReactDOM from 'react-dom';
 
 class SeriesView extends Component {
     constructor(props) {
@@ -18,19 +20,22 @@ class SeriesView extends Component {
 
         this.showMetricsNames = this.showMetricsNames.bind(this);
         this.showMetrics = this.showMetrics.bind(this);
+        this.metricsNameHandler = this.metricsNameHandler.bind(this);
         this.showMetricsStyle = {
             display: "none"
         };
     }
 
-    getBaasMeasurementsPublicUrl(groupID, applicationID, metricsNames) {
-        const url = `/api/atlas/v1.0/groups/${groupID}/application/${applicationID}/realm/measurements?granularity=PT1M&period=PT1H`
+    getBaasMeasurementsPublicUrl(groupID, applicationID) {
+        const url = `/api/atlas/v1.0/groups/${groupID}/application/${applicationID}/realm/measurements?granularity=PT1M&period=PT1H`;
+        if (this.metricsNames.length === 0) {
+            return url;
+        }
         const queries = [];
-        metricsNames.forEach(name => {
-            queries.push(`?metrics=${name}`);
+        this.metricsNames.forEach(name => {
+            queries.push(`&metrics=${name}`);
         });
-
-        return `${url}${queries.join("&")}`;
+        return `${url}${queries.join("")}`;
     }
 
     getBaasMetricsPublicUrl(groupID, applicationID) {
@@ -39,10 +44,11 @@ class SeriesView extends Component {
     // curl --user "bjwqwyko:36d0ac8b-df27-49e1-8498-fcfd451660ba" --digest --header "Content-Type: application/json" --include --request GET "http://localhost:8080/api/atlas/v1.0/groups/63ff7f8397f5ea615df7db2e/application/636276a6dab3c68df06a73ad/realm/metrics"
     // curl --user "bjwqwyko:36d0ac8b-df27-49e1-8498-fcfd451660ba" --digest --header "Content-Type: application/json" --include --request GET "http://localhost:8080/api/atlas/v1.0/groups/63ff7f8397f5ea615df7db2e/application/636276a6dab3c68df06a73ad/realm/measurements?granularity=PT1M&period=PT1H"
     render() {
-        return <div>
+        return <div id="seriesView">
             <button onClick={this.showMetricsNames}>Show Avaiable Metrics</button>
             <div id="seriesSelector" className="seriesSelector"></div>
             <button id="showMetrics" onClick={this.showMetrics} style={this.showMetricsStyle}>Display Selected Metrics</button>
+            <div id="chartsContainer"></div>
         </div>;
     }
 
@@ -53,9 +59,11 @@ class SeriesView extends Component {
             node.innerHTML = `${metric.metricName}, ${metric.units}`;
             selectorElem.appendChild(node);
         });
+        this.metricsNames = data.metrics.map(metric => metric.metricName);
     }
 
     measurementsHandler(data) {
+        ReactDOM.render(<Chart/>, document.getElementById("chartsContainer"));
         console.log(data);
     }
 

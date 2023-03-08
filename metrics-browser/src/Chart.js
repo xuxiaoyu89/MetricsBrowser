@@ -1,8 +1,7 @@
 import { Component } from 'react';
 import Dygraph from 'dygraphs';
 
-class DyGraph extends Component {    
-    
+class DyGraph extends Component {
     render() {
         return <div id="graph"></div>;
     }
