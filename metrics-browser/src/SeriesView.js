@@ -63,8 +63,7 @@ class SeriesView extends Component {
     }
 
     measurementsHandler(data) {
-        ReactDOM.render(<Chart/>, document.getElementById("chartsContainer"));
-        console.log(data);
+        ReactDOM.render(<Chart measurements={data.measurements} />, document.getElementById("chartsContainer"));
     }
 
     showMetricsNames() {
