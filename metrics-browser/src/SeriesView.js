@@ -1,4 +1,5 @@
 import "./SeriesView.css"
+import "./Chart.css"
 import { Component } from "react";
 import Chart from './Chart';
 import digestAuthRequest from 'digest-auth-request';
@@ -48,22 +49,29 @@ class SeriesView extends Component {
             <button onClick={this.showMetricsNames}>Show Avaiable Metrics</button>
             <div id="seriesSelector" className="seriesSelector"></div>
             <button id="showMetrics" onClick={this.showMetrics} style={this.showMetricsStyle}>Display Selected Metrics</button>
-            <div id="chartsContainer"></div>
+            <div id="chartsContainer" className="chartsContainer"></div>
         </div>;
     }
 
     metricsNameHandler(data) {
-        const selectorElem = document.getElementById("seriesSelector");
-        data.metrics.forEach(metric => {
-            const node = document.createElement("div");
-            node.innerHTML = `${metric.metricName}, ${metric.units}`;
-            selectorElem.appendChild(node);
-        });
+        const root = ReactDOM.createRoot(
+            document.getElementById("seriesSelector")
+        );
+        root.render(
+            <>
+                {data.metrics.map(metric => (<div>
+                    <button>{metric.metricName}</button>
+                </div>))}
+            </>
+        )
         this.metricsNames = data.metrics.map(metric => metric.metricName);
     }
 
     measurementsHandler(data) {
-        ReactDOM.render(<Chart measurements={data.measurements} />, document.getElementById("chartsContainer"));
+        const root = ReactDOM.createRoot(
+            document.getElementById("chartsContainer")
+        );
+        root.render(<Chart measurements={data.measurements} />);
     }
 
     showMetricsNames() {

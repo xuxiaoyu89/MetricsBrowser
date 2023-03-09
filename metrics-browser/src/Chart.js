@@ -1,3 +1,4 @@
+import "./Chart.css"
 import { Component } from 'react';
 import Dygraph from 'dygraphs';
 
@@ -12,7 +13,7 @@ class DyGraph extends Component {
     render() {
         const chartContainers = [];
         this.state.measurements.forEach(measurement => {
-            chartContainers.push(<div id={measurement.name}></div>);
+            chartContainers.push(<div id={measurement.name} className="chart"></div>);
         });
 
         return chartContainers;
