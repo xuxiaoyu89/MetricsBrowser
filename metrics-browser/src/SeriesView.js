@@ -21,6 +21,7 @@ class SeriesView extends Component {
         this.showMetricNames = this.showMetricNames.bind(this);
         this.showMetrics = this.showMetrics.bind(this);
         this.metricNameHandler = this.metricNameHandler.bind(this);
+        this.toggleMetricName = this.toggleMetricName.bind(this);
         this.showMetricsStyle = {
             display: "none"
         };
@@ -58,11 +59,24 @@ class SeriesView extends Component {
             <button>get metrics</button>
             <div id="seriesView">
             <button onClick={this.showMetricNames}>Show Avaiable Metrics</button>
-            <div id="seriesSelector" className="seriesSelector"></div>
+            <div id="seriesSelector" className="seriesSelector">
+                <SeriesControlPanel metrics={this.state.metrics} toggleMetricName={this.toggleMetricName} />
+            </div>
             <button id="showMetrics" onClick={this.showMetrics} style={this.showMetricsStyle}>Display Selected Metrics</button>
             <div id="chartsContainer" className="chartsContainer"></div>
         </div>
         </>;
+    }
+
+    toggleMetricName(metricName, e) {
+        if (metricName === undefined) {
+            return;
+        }
+        const newMetrics = Object.create(this.state.metrics);
+        newMetrics[metricName] = ! this.state.metrics[metricName];
+        this.setState({
+            metrics: newMetrics
+        });
     }
 
     metricNameHandler(data) {
@@ -74,11 +88,6 @@ class SeriesView extends Component {
 
         this.setState({
             metrics: newMetrics
-        }, () => {
-            const root = ReactDOM.createRoot(
-                document.getElementById("seriesSelector")
-            );
-            root.render(<SeriesControlPanel metrics={this.state.metrics} />);
         });
     }
 

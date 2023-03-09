@@ -2,26 +2,15 @@ import { Component } from "react";
 
 
 class SeriesControlPanel extends Component {
-    // name: selected, 
-    // state:
-    constructor(props) {
-        super(props);
-        this.metrics = props.metrics;
-    }
-
     render() {
         const metricNameList = [];
-        for (const name in this.metrics) {
-            metricNameList.push(<div><button>{name}</button></div>)
+        for (const name in this.props.metrics) {
+            metricNameList.push(<div>
+                <button id={name} style={{ backgroundColor: this.props.metrics[name] ? 'blue' : 'white' }} onClick={this.props.toggleMetricName.bind(this, name)}>{name}</button>
+            </div>);
         }
         return metricNameList;
     }
-
-
-    componentDidMount() {
-
-    }
-
 }
 
 export default SeriesControlPanel;
