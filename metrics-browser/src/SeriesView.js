@@ -38,7 +38,9 @@ class SeriesView extends Component {
         }
         const queries = [];
         for (const name in this.state.metrics) {
-            queries.push(`&metrics=${name}`);
+            if (this.state.metrics[name]) {
+                queries.push(`&metrics=${name}`);
+            }
         };
         return `${url}${queries.join("")}`;
     }
