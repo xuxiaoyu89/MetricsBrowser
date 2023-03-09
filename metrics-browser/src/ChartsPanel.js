@@ -1,8 +1,8 @@
-import "./Chart.css"
+import "./ChartsPanel.css"
 import { Component } from 'react';
 import Dygraph from 'dygraphs';
 
-class DyGraph extends Component {
+class ChartsPanel extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -37,4 +37,4 @@ class DyGraph extends Component {
 
 }
 
-export default DyGraph;
+export default ChartsPanel;
