@@ -1,0 +1,9 @@
+.chartsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.chart {
+    width: 480px;
+}
