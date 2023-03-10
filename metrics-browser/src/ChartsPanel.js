@@ -21,12 +21,15 @@ class ChartsPanel extends Component {
                     document.getElementById(measurement.name),
                     // For possible data formats, see http://dygraphs.com/data.html
                     // The x-values could also be dates, e.g. "2012/03/15"
-                    measurement.dataPoints.map(entry => [Date.parse(entry.timestamp), entry.value]),
+                    measurement.dataPoints.map(entry => [new Date(entry.timestamp), entry.value]),
                     {
                         // options go here. See http://dygraphs.com/options.html
                         legend: 'always',
                         animatedZooms: true,
-                        title: measurement.name
+                        connectSeparatedPoints: true,
+                        title: measurement.name,
+                        xlabel: "time",
+                        ylabel: measurement.units
                     });
             }
         });
@@ -39,12 +42,15 @@ class ChartsPanel extends Component {
                     document.getElementById(measurement.name),
                     // For possible data formats, see http://dygraphs.com/data.html
                     // The x-values could also be dates, e.g. "2012/03/15"
-                    measurement.dataPoints.map(entry => [Date.parse(entry.timestamp), entry.value]),
+                    measurement.dataPoints.map(entry => [new Date(entry.timestamp), entry.value]),
                     {
                         // options go here. See http://dygraphs.com/options.html
                         legend: 'always',
                         animatedZooms: true,
-                        title: measurement.name
+                        connectSeparatedPoints: true,
+                        title: measurement.name,
+                        xlabel: "time",
+                        ylabel: measurement.units
                     });
             }
         });
