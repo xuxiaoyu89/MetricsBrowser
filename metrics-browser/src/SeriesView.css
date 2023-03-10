@@ -15,14 +15,32 @@
     margin: 4px 2px;
     cursor: pointer;
     background-color: #ceffc2;
-    transition-duration: 0.4s;
+    transition-duration: 0.1s;
 }
 
 .button:hover {
     background-color: #00ED64; /* Green */
     color: white;
-  }
+}
 
 .selectedButton {
     background-color: #00684A;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button1 {
+    border: 1px solid #00684A;
+    border-radius: 8px;
+    padding: 4px 4px;
+    text-align: center;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: #ceffc2;
+    transition-duration: 0.1s;
 }

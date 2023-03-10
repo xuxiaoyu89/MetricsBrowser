@@ -24,7 +24,7 @@ class SeriesView extends Component {
         this.showMetricsStyle = {
             display: "none"
         };
-    
+
         this.state = {
             metrics: {} // {metricName: checked}
         };
@@ -57,15 +57,18 @@ class SeriesView extends Component {
             <input type="text" id="publicKey" name="publicKey"></input>
             <label>Private Key: </label>
             <input type="text" id="privateKey" name="privateKey"></input>
-            <button>get metrics</button>
-            <div id="seriesView">
-            <button onClick={this.showMetricNames}>Show Avaiable Metrics</button>
-            <div id="seriesSelector" className="seriesSelector">
-                <SeriesControlPanel metrics={this.state.metrics} toggleMetricName={this.toggleMetricName} />
+            <div class="button-container">
+                <button class="button1" onClick={this.showMetricNames}>Show Avaiable Metrics</button>
             </div>
-            <button id="showMetrics" onClick={this.showMetrics} style={this.showMetricsStyle}>Display Selected Metrics</button>
+            <div id="seriesView">
+                <div id="seriesSelector" className="seriesSelector">
+                    <SeriesControlPanel metrics={this.state.metrics} toggleMetricName={this.toggleMetricName} />
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="button1" id="showMetrics" onClick={this.showMetrics} style={this.showMetricsStyle}>Display Selected Metrics</button>
+            </div>
             <div id="chartsContainer" className="chartsContainer"></div>
-        </div>
         </>;
     }
 
@@ -74,7 +77,7 @@ class SeriesView extends Component {
             return;
         }
         const newMetrics = Object.create(this.state.metrics);
-        newMetrics[metricName] = ! this.state.metrics[metricName];
+        newMetrics[metricName] = !this.state.metrics[metricName];
         this.setState({
             metrics: newMetrics
         });
