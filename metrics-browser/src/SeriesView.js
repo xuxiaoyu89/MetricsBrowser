@@ -32,7 +32,7 @@ class SeriesView extends Component {
     }
 
     getBaasMeasurementsPublicUrl(groupID, applicationID) {
-        const url = `/api/atlas/v1.0/groups/${groupID}/application/${applicationID}/realm/measurements?granularity=PT1M&period=PT1H`;
+        const url = `http://localhost:8080/api/atlas/v1.0/groups/${groupID}/application/${applicationID}/realm/measurements?granularity=PT1M&period=PT1H`;
         if (Object.keys(this.state.metrics).length === 0) {
             return url;
         }
@@ -46,7 +46,7 @@ class SeriesView extends Component {
     }
 
     getBaasMetricsPublicUrl(groupID, applicationID) {
-        return `/api/atlas/v1.0/groups/${groupID}/application/${applicationID}/realm/metrics`;
+        return `http://localhost:8080/api/atlas/v1.0/groups/${groupID}/application/${applicationID}/realm/metrics`;
     }
     // curl --user "bjwqwyko:36d0ac8b-df27-49e1-8498-fcfd451660ba" --digest --header "Content-Type: application/json" --include --request GET "http://localhost:8080/api/atlas/v1.0/groups/63ff7f8397f5ea615df7db2e/application/636276a6dab3c68df06a73ad/realm/metrics"
     // curl --user "bjwqwyko:36d0ac8b-df27-49e1-8498-fcfd451660ba" --digest --header "Content-Type: application/json" --include --request GET "http://localhost:8080/api/atlas/v1.0/groups/63ff7f8397f5ea615df7db2e/application/636276a6dab3c68df06a73ad/realm/measurements?granularity=PT1M&period=PT1H"
@@ -102,21 +102,37 @@ class SeriesView extends Component {
 
     showMetricNames() {
         const metricsUrl = this.getBaasMetricsPublicUrl(this.groupID, this.appID);
-        // call api
-        const getRequest = new digestAuthRequest('GET', metricsUrl, this.apiPublicKey, this.apiPrivateKey);
-        getRequest.request(this.metricNameHandler,function(errorCode) { 
-            console.log("error: ", errorCode);
-        });
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                url: metricsUrl,
+                publicKey: this.apiPublicKey,
+                privateKey: this.apiPrivateKey
+            })
+        };
+        fetch('/api', requestOptions)
+            .then(response => response.json())
+            .then(this.metricNameHandler);
         document.getElementById("showMetrics").style.display = "block";
     }
 
     showMetrics() {
         const measurementsUrl = this.getBaasMeasurementsPublicUrl(this.groupID, this.appID);
-        // call api
-        const getRequest = new digestAuthRequest('GET', measurementsUrl, this.apiPublicKey, this.apiPrivateKey);
-        getRequest.request(this.measurementsHandler,function(errorCode) { 
-            console.log("error: ", errorCode);
-        });
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                url: measurementsUrl,
+                publicKey: this.apiPublicKey,
+                privateKey: this.apiPrivateKey
+            })
+        };
+        fetch('/api', requestOptions)
+            .then(response => response.json())
+            .then(this.measurementsHandler);
     }
 }
 
