@@ -2,15 +2,15 @@
 
 # dependencies
 ./server/node_modules
-./metrics-brower/node_modules
-./metrics-brower/.pnp
-./metrics-brower/.pnp.js
+./metrics-browser/node_modules
+./metrics-browser/.pnp
+./metrics-browser/.pnp.js
 
 # testing
-./metrics-brower/coverage
+./metrics-browser/coverage
 
 # production
-./metrics-brower/build
+./metrics-browser/build
 
 # misc
 .DS_Store
