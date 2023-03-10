@@ -7,14 +7,14 @@ class SeriesControlPanel extends Component {
         for (const name in this.props.metrics) {
             if (this.props.metrics[name]) {
                 metricNameList.push(<div>
-                    <button style={{ backgroundColor: this.props.metrics[name] ? 'blue' : 'white' }} onClick={this.props.toggleMetricName.bind(this, name)}>{name}</button>
+                    <button class= {'button ' + (this.props.metrics[name] ? 'selectedButton' : 'unSelectedButton')} onClick={this.props.toggleMetricName.bind(this, name)}>{name}</button>
                 </div>);
             }
         }
         for (const name in this.props.metrics) {
             if (!this.props.metrics[name]) {
                 metricNameList.push(<div>
-                    <button style={{ backgroundColor: this.props.metrics[name] ? 'blue' : 'white' }} onClick={this.props.toggleMetricName.bind(this, name)}>{name}</button>
+                    <button class={'button ' + (this.props.metrics[name] ? 'selectedButton' : 'unSelectedButton')} onClick={this.props.toggleMetricName.bind(this, name)}>{name}</button>
                 </div>);
             }
         }

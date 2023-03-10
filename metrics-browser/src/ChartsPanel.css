@@ -6,4 +6,29 @@
 
 .chart {
     width: 480px;
+    border-style: dotted;
+    margin: 10px;
+}
+
+.dygraph-title {
+    z-index: 10;
+    text-align: center;
+    /* font-size: based on titleHeight option */
+  }
+
+.dygraph-legend {
+    position: absolute;
+    font-size: 12px;
+    z-index: 10;
+    width: 200px;  /* labelsDivWidth */
+    /*
+    dygraphs determines these based on the presence of chart labels.
+    It might make more sense to create a wrapper div around the chart proper.
+    top: 0px;
+    right: 2px;
+    */
+    background: #ffffff;
+    line-height: normal;
+    text-align: right;
+    overflow: hidden;
 }

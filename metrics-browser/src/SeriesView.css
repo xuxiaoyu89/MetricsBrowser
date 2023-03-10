@@ -3,3 +3,26 @@
     flex-wrap: wrap;
     flex-direction: row;
 }
+
+.button {
+    border: none;
+    border-radius: 8px;
+    padding: 4px 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: #ceffc2;
+    transition-duration: 0.4s;
+}
+
+.button:hover {
+    background-color: #00ED64; /* Green */
+    color: white;
+  }
+
+.selectedButton {
+    background-color: #00684A;
+}

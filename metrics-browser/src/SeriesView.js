@@ -3,7 +3,6 @@ import "./ChartsPanel.css"
 import { Component } from "react";
 import ChartsPanel from './ChartsPanel';
 import SeriesControlPanel from './SeriesControlPanel';
-import digestAuthRequest from 'digest-auth-request';
 import ReactDOM from 'react-dom';
 
 class SeriesView extends Component {
