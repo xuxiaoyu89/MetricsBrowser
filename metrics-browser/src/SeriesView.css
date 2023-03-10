@@ -1,7 +1,18 @@
+.input-table {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.input-text {
+    width: 400px;
+}
+
 .seriesSelector {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: center;
 }
 
 .button {

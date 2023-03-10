@@ -58,10 +58,6 @@ class SeriesView extends Component {
         return `${url}${queries.join("")}`;
     }
 
-    getBaasMetricsPublicUrl(groupID, applicationID) {
-        return `http://localhost:8080/api/atlas/v1.0/groups/${groupID}/application/${applicationID}/realm/metrics`;
-    }
-
     getHostMetricsPublicUrl(groupID, hostName) {
         return `https://cloud-dev.mongodb.com/api/atlas/v1.0/groups/${groupID}/processes/${hostName}/measurements?granularity=PT1M&period=PT1H`;
     }
@@ -93,16 +89,30 @@ class SeriesView extends Component {
 
     render() {
         return <>
-            <label>GroupID: </label>
-            <input type="text" value={this.state.groupID} onChange={this.handleGroupIDChange}></input><br/>
-            <label>HostName: </label>
-            <input type="text" value={this.state.hostName} onChange={this.handleHostNameChange}></input><br/>
-            <label>AppID (for Realm): </label>
-            <input type="text" value={this.state.appID} onChange={this.handleAppIDChange}></input><br/>
-            <label>Public Key: </label>
-            <input type="text" value={this.state.publicKey} onChange={this.handlePublicKeyChange}></input><br/>
-            <label>Private Key: </label>
-            <input type="text" value={this.state.privateKey} onChange={this.handlePrivateKeyChange}></input><br/>
+            <div className="input-table">
+                <table>
+                    <tr>
+                        <th><label className="input-label">GroupID: </label></th>
+                        <th><input className="input-text" type="text" value={this.state.groupID} onChange={this.handleGroupIDChange}></input></th>
+                    </tr>
+                    <tr>
+                        <th><label className="input-label">HostName: </label></th>
+                        <th><input className="input-text" type="text" value={this.state.hostName} onChange={this.handleHostNameChange}></input></th>
+                    </tr>
+                    <tr>
+                        <th><label className="input-label">AppID (for Realm): </label></th>
+                        <th><input className="input-text" type="text" value={this.state.appID} onChange={this.handleAppIDChange}></input></th>
+                    </tr>
+                    <tr>
+                        <th><label className="input-label">Public Key: </label></th>
+                        <th><input className="input-text" type="text" value={this.state.publicKey} onChange={this.handlePublicKeyChange}></input></th>
+                    </tr>
+                    <tr>
+                        <th><label className="input-label">Private Key: </label></th>
+                        <th><input className="input-text" type="text" value={this.state.privateKey} onChange={this.handlePrivateKeyChange}></input></th>
+                    </tr>
+                </table>
+            </div>
             <div className="button-container">
                 <button className="button1" onClick={this.showRealmMetrics}>Show Avaiable Realm Metrics</button>
                 <button className="button1" onClick={this.showHostMetrics}>Show Avaiable Host Metrics</button>
