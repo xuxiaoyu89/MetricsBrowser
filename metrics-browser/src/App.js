@@ -5,9 +5,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Metrics Browser
-        </p>
+        <text style={{fontSize: 40}}>
+          MongoDB Metrics Browser
+        </text>
+        <text style={{fontSize: 15}}>
+          show metrics from MongoDB Measurements API
+        </text>
       </header>
       <SeriesView />
     </div>
